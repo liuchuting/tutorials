@@ -1,29 +1,25 @@
 # Stable Diffusion text-to-image fine-tuning
 
-## Running locally with MindSpore
+## Requirements
 
-| Ascend | MindSpore Version                                   | CANN Version                                                                                                      |
-|--------|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
-| 910*   | [MS 2.3.0](https://www.mindspore.cn/versions#2.3.0) | [CANN 8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1) |
-
-**Note**: You can use `cat /usr/local/Ascend/ascend-toolkit/latest/version.cfg` check the CANN version and you can see the specific version number `[7.3.0.1.231:8.0.RC2]`. If you have a custom installation path for CANN, find the `version.cfg` in your own CANN installation path to verify the version.
+| mindspore  | ascend driver  |  firmware   |cann toolkit/kernel |
+|:----------:|:--------------:|:-----------:|:------------------:|
+|   2.3.1    |    24.1.RC2    | 7.3.0.1.231 |   8.0.RC2.beta1    |
 
 ## Training
 
-We trained on the [OnePiece dataset](https://huggingface.co/datasets/YaYaB/onepiece-blip-captions) and recorded the training speed as follows.
+Experiments are tested on ascend 910* graph mode with a single card.
 
-| Method  | NPUs | Global <br/>Batch size | Resolution   | Precision | Graph Compile | Speed <br/>(ms/step) | FPS <br/>(img/s) |
-|---------|------|------------------------|--------------|-----------|-----------|----------------------|------------------|
-| Vanilla | 1    | 1*1                    | 512x512      | FP16      | 1~5 min   | 260                  | 3.85             |
-| Vanilla | 8    | 1*8                    | 512x512      | FP16      | 1~5 min   | 404                  | 19.8             |
-| LoRA    | 1    | 1*1                    | 512x512      | FP16      | 1~5 min   | 200                  | 5.00             |
-| LoRA    | 8    | 1*8                    | 512x512      | FP16      | 1~5 min   | 231                  | 34.63            |
+|  task   | batch size | resolution | precision | graph compile | step time(ms) | train. imgs/s |
+|:-------:|:----------:|:----------:|:---------:|:-------------:|:-------------:|:-------------:|
+| vanilla |     1      |  512x512   |   FP16    |   1~5 mins    |      577      |     1.73      |
+|  lora   |     1      |  512x512   |   FP16    |   1~5 mins    |      286      |     3.50      |
 
 ## Inference
 
 ### Vanilla Fine-tuning
 
-We trained 6k steps based on the [OnePiece dataset](https://huggingface.co/datasets/YaYaB/onepiece-blip-captions). Here are some of the results of the fine-tuning and the training details are recorded [here](https://github.com/liuchuting/mindone/blob/sd_doc/examples/diffusers/text_to_image/README.md#hardware).
+The training details are recorded [here](https://github.com/mindspore-lab/mindone/blob/master/examples/diffusers/text_to_image/README.md#hardware), we trained 6k steps based on the [OnePiece dataset](https://huggingface.co/datasets/YaYaB/onepiece-blip-captions) and here are some of results:
 
 |                                                                      a girl with a mask on her face                                                                      |                                                                 a man holding a book                                                                  |                                                                 a man holding a sword                                                                  |                                                                 a man sitting on top of a flower                                                                  |
 |:------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -35,7 +31,7 @@ We trained 6k steps based on the [OnePiece dataset](https://huggingface.co/datas
 
 ### LoRA Fine-tuning
 
-We trained 15k steps based on the [OnePiece dataset](https://huggingface.co/datasets/YaYaB/onepiece-blip-captions). Here are some of the results of the lora fine-tuning and the training details are recorded [here](https://github.com/liuchuting/mindone/blob/sd_doc/examples/diffusers/text_to_image/README.md#training).
+The training details are recorded [here](https://github.com/mindspore-lab/mindone/blob/master/examples/diffusers/text_to_image/README.md#training), we trained 6k steps based on the [OnePiece dataset](https://huggingface.co/datasets/YaYaB/onepiece-blip-captions) and here are some of results:
 
 |                                                                      a man in a hat and jacket                                                                      |                                                                 a man in a yellow coat                                                                  |                                                                 a man with a big smile on his face                                                                  |                                                                 a man with a hat and mustache                                                                  |
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------:|
