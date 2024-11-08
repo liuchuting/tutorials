@@ -10,11 +10,11 @@
 
 Experiments are tested on ascend 910* graph mode with a single card.
 
-|  task   | batch size | train text encoder | resolution | precision | graph compile | step time(ms) | train. imgs/s |
-|:-------:|:----------:|:------------------:|:----------:|:---------:|:-------------:|:-------------:|:-------------:|
-| vanilla |     1      |        OFF         |  512x512   |   fp16    |   1~5 mins    |     1560      |     0.64      |
-|  lora   |     1      |        OFF         | 1024x1024  |   fp16    |  10~15 mins   |      982      |     1.02      |
-|  lora   |     1      |         ON         | 1024x1024  |   fp32    |  10~15 mins   |     1341      |     0.75      |
+| method  | batch size | resolution | train text encoder | precision |  jit level  | graph compile | s/step | img/s |
+|:-------:|:----------:|:----------:|:------------------:|:---------:|:-----------:|:-------------:|:------:|:-----:|
+| vanilla |     1      |  512x512   |        OFF         |   fp16    |     O0      |   1~5 mins    |  1560  | 0.64  |
+|  lora   |     1      | 1024x1024  |        OFF         |   fp16    |     O0      |  10~15 mins   |  982   | 1.02  |
+|  lora   |     1      | 1024x1024  |         ON         |   fp32    |     O0      |  10~15 mins   |  1341  | 0.75  |
 
 ## Inference
 
